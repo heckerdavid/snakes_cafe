@@ -13,7 +13,8 @@ menu = {
     'Drinks': ['Coffee', 'Tea', 'Unicorn Tears'],
 }
 
-prompt = """***********************************
+prompt = """
+***********************************
 ** What would you like to order? **
 ***********************************
 > """
@@ -29,8 +30,26 @@ def show_menu():
 
 print(header)
 show_menu()
-new_order = str(input(prompt))
 
-for sublist in list(menu.values()):
-    if new_order in sublist:
-        print(f'1 order of {new_order} has been added to your meal')
+orders = {}
+
+flag = True
+
+while flag:
+    new_order = str(input(prompt))
+
+    if new_order == 'quit':
+        flag = False
+        print(f'You ordered: {orders}')
+
+    if new_order == 'show order':
+        print(orders)
+
+    if new_order in orders:
+        orders[new_order] += 1
+        print(f'{orders[new_order]} orders of {new_order} added to your meal')
+    else:
+        for sublist in list(menu.values()):
+            if new_order in sublist:
+                orders[new_order] = 1
+                print(f'1 order of {new_order} has been added to your meal')
